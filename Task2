@@ -1,0 +1,71 @@
+import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
+
+public class GradeTracker {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    Map<String, Double> grades = new HashMap<>();
+
+    // Prompt user to input grades for different subjects or assignments
+    System.out.println("Enter grades for different subjects or assignments:");
+    while (true) {
+      System.out.print("Enter subject/assignment name (or 'quit' to finish): ");
+      String subject = scanner.next();
+      if (subject.equalsIgnoreCase("quit")) {
+        break;
+      }
+      System.out.print("Enter grade for " + subject + ": ");
+      double grade = scanner.nextDouble();
+      grades.put(subject, grade);
+    }
+
+    // Calculate the average grade
+    double averageGrade = 0;
+    for (double grade : grades.values()) {
+      averageGrade += grade;
+    }
+    averageGrade /= grades.size();
+
+    // Display the overall grade and additional information
+    System.out.println("Overall Grade: " + averageGrade);
+    System.out.println("Letter Grade: " + getLetterGrade(averageGrade));
+    System.out.println("GPA: " + getGPA(averageGrade));
+
+    // Display individual grades
+    System.out.println("Individual Grades:");
+    for (Map.Entry<String, Double> entry : grades.entrySet()) {
+      System.out.println(entry.getKey() + ": " + entry.getValue());
+    }
+  }
+
+  // Helper method to get letter grade based on average grade
+  private static String getLetterGrade(double averageGrade) {
+    if (averageGrade >= 90) {
+      return "A";
+    } else if (averageGrade >= 80) {
+      return "B";
+    } else if (averageGrade >= 70) {
+      return "C";
+    } else if (averageGrade >= 60) {
+      return "D";
+    } else {
+      return "F";
+    }
+  }
+
+  // Helper method to get GPA based on average grade
+  private static double getGPA(double averageGrade) {
+    if (averageGrade >= 90) {
+      return 4.0;
+    } else if (averageGrade >= 80) {
+      return 3.0;
+    } else if (averageGrade >= 70) {
+      return 2.0;
+    } else if (averageGrade >= 60) {
+      return 1.0;
+    } else {
+      return 0.0;
+    }
+  }
+}
